@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -24,11 +27,31 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
+
     }
+
+    flavorDimensions.add("version")
+
+    productFlavors {
+        create("free") {
+            dimension = "version"
+            val appId = applicationId
+            val versionName = versionName
+            val timestamp = releaseTime()
+            val newFileName = "${appId}-v${versionName}_${timestamp}.apk"
+
+            // change app name block below
+            buildOutputs.all {
+                val variantOutputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+                variantOutputImpl.outputFileName =  newFileName
+            }
+        }
+    }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -49,8 +72,12 @@ android {
     }
 }
 
-dependencies {
+fun releaseTime(): String {
+    val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss")
+    return dateFormat.format(Date())
+}
 
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
