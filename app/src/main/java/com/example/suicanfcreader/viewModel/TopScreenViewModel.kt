@@ -28,7 +28,8 @@ class TopScreenViewModel(
     private val _nfcData = MutableLiveData<String>()
     val nfcData: LiveData<String> get() = _nfcData
     private val _showNoNfcDialog = MutableLiveData<Boolean>()
-
+    private val _isDataRefreshed = MutableLiveData<Boolean>()
+    val isDataRefreshed: LiveData<Boolean> = _isDataRefreshed
     fun enableNfcForegroundDispatch(activity: Activity) {
         nfcAdapter?.let { adapter ->
             if (adapter.isEnabled) {
@@ -72,6 +73,7 @@ class TopScreenViewModel(
                     viewModelScope.launch {
                         val data = readTagData(tag, context)
                         _nfcData.postValue(data)
+                        _isDataRefreshed.postValue(true)
                     }
                 }
             }
