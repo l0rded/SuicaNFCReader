@@ -6,16 +6,20 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
+val appId = "com.example.suicanfcreader"
+val verCode = 100
+val verId = "1.0.0"
+
 android {
     namespace = "com.example.suicanfcreader"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.suicanfcreader"
+        applicationId = appId
         minSdk = 34
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = verCode
+        versionName = verId
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,30 +31,26 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
-
     }
 
     flavorDimensions.add("version")
 
     productFlavors {
-        create("free") {
+        create("default") {
             dimension = "version"
-            val appId = applicationId
-            val versionName = versionName
             val timestamp = releaseTime()
-            val newFileName = "${appId}-v${versionName}_${timestamp}.apk"
+            val newFileName = "${appId}-v${verId}_${timestamp}.apk"
 
-            // change app name block below
             buildOutputs.all {
-                val variantOutputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-                variantOutputImpl.outputFileName =  newFileName
+                (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl)
+                    .outputFileName = newFileName
             }
         }
     }
-
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -96,3 +96,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
