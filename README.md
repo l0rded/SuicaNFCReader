@@ -1,7 +1,7 @@
 # Suica and Pasmo Reader
 
 This Android application is designed to read and display data from Japan’s popular transportation NFC cards, Suica and Pasmo. The app provides a way to see the raw data from the cards.
-
+<a href="https://drive.google.com/file/d/1FMq20dVy2ZySrnmD79NkmVe5Y5b4ib7A/view?usp=drive_link">Download latest APK version HERE</a>
 ## Features
 
 <ul class="feature-list">
