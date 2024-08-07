@@ -23,7 +23,7 @@ This Android application is designed to read and display data from Japan’s pop
 1. Clone the repository:
 
     <div class="code-block">
-    <pre><code>git clonehttps://github.com/l0rded/SuicaNFCReader.git</code></pre>
+    <pre><code>git clone https://github.com/l0rded/SuicaNFCReader.git</code></pre>
     </div>
 
 2. Open the project in Android Studio.
